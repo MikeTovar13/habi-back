@@ -59,7 +59,7 @@ INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VA
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Ciudad Bolivar", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Bosa", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Barrios Unidos", 1, date("now"), date("now"));
-INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Antonio Nariño", 1, date("now"), date("now"));
+INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Antonio Narino", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Usme", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Usaquen", 1, date("now"), date("now"));
 
