@@ -38,23 +38,23 @@ CREATE TABLE inmueble (
 );
 
 --Ciudades
-INSERT INTO ciudad (nombre, fecha_creacion, fecha_modificacion) VALUES ("Bogotá", date("now"), date("now"));
+INSERT INTO ciudad (nombre, fecha_creacion, fecha_modificacion) VALUES ("Bogota", date("now"), date("now"));
 INSERT INTO ciudad (nombre, fecha_creacion, fecha_modificacion) VALUES ("Medellin", date("now"), date("now"));
 
---Localidades Bogotá
+--Localidades Bogota
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Chapinero", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Tunjuelito", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Teusaquillo", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Sumapaz", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Suba", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Santa Fe", 1, date("now"), date("now"));
-INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("San Cristóbal", 1, date("now"), date("now"));
+INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("San Cristobal", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Rafael Uribe Uribe", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Puente Aranda", 1, date("now"), date("now"));
-INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Los Mártires", 1, date("now"), date("now"));
+INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Los Martires", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("La Candelario", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Kennedy", 1, date("now"), date("now"));
-INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Fontibón", 1, date("now"), date("now"));
+INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Fontibon", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Engativa", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Ciudad Bolivar", 1, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Bosa", 1, date("now"), date("now"));
@@ -69,7 +69,7 @@ INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VA
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Guayabal", 2, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Poblado", 2, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("San Javier", 2, date("now"), date("now"));
-INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("La América", 2, date("now"), date("now"));
+INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("La America", 2, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Laureles-Estadio", 2, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("La Candelaria", 2, date("now"), date("now"));
 INSERT INTO localidad (nombre, id_ciudad, fecha_creacion, fecha_modificacion) VALUES ("Buenos Aires", 2, date("now"), date("now"));

@@ -36,7 +36,7 @@ def getInmuebles(filtros: FiltrosModel):
             "id":inmueble[0],
             "area":inmueble[1],
             "habitaciones":inmueble[2],
-            "precio":inmueble[3],
+            "precio":f"${inmueble[3]:,.0f}",
             "direccion":inmueble[4],
             "localidad":inmueble[5],
             "propietario":inmueble[6],
