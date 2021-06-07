@@ -1,5 +1,3 @@
-from starlette import responses
-from settings import NUMBER_INMUEBLES_PAGE
 from models.models import FiltrosModel, Inmuebles, ModelId
 from datetime import date
 from connect_db import ConnectDBSQLite
@@ -13,18 +11,30 @@ inmueblesApp = APIRouter()
 # Obtener inmuebles (Todos)
 @inmueblesApp.post("/obtener")
 def getInmuebles(filtros: FiltrosModel):
+    tipo_filtro={
+        "fecha": "i.fecha_creacion",
+        "localidad": "l.nombre",
+        "ciudad": "c.nombre"
+    }
 
     filtros = filtros.dict()
-    r_final = filtros["pagina"] * NUMBER_INMUEBLES_PAGE
-    r_inicial = r_final - NUMBER_INMUEBLES_PAGE + 1
 
-    query = f"""SELECT id, area, habitaciones, precio, direccion, localidad, propietario FROM(
-        SELECT i.*,l.nombre localidad, p.nombre propietario,
-            ROW_NUMBER() over(
-            ORDER BY {"i.fecha_creacion" if filtros["orden"]["tipo"] == "fecha" else "l.nombre"} {filtros["orden"]["by"]}
-            ) RowNum
-        FROM inmueble i INNER JOIN localidad l ON l.id= i.id_localidad INNER JOIN propietario p ON p.id=i.id_propietario
-        )a WHERE rownum BETWEEN {r_inicial} AND {r_final}"""
+    query = f""" SELECT i.id, i.area, i.habitaciones, i.precio, i.direccion ,l.nombre localidad, p.nombre propietario, c.nombre ciudad 
+        FROM inmueble i INNER JOIN localidad l ON l.id= i.id_localidad INNER JOIN propietario p ON p.id=i.id_propietario inner join ciudad c on c.id=l.id_ciudad
+        ORDER BY {tipo_filtro[filtros["orden"]["tipo"]]} {filtros["orden"]["by"]}
+        """
+
+    # Paginacion desde la peticion (enviando de a 10 items)
+    # r_final = filtros["pagina"] * NUMBER_INMUEBLES_PAGE
+    # r_inicial = r_final - NUMBER_INMUEBLES_PAGE + 1
+
+    # query = f"""SELECT id, area, habitaciones, precio, direccion, localidad, propietario, ciudad FROM(
+    #     SELECT i.*,l.nombre localidad, p.nombre propietario, c.nombre ciudad, 
+    #         ROW_NUMBER() over(
+    #         ORDER BY {tipo_filtro[filtros["orden"]["tipo"]]} {filtros["orden"]["by"]}
+    #         ) RowNum
+    #     FROM inmueble i INNER JOIN localidad l ON l.id= i.id_localidad INNER JOIN propietario p ON p.id=i.id_propietario inner join ciudad c on c.id=l.id_ciudad
+    #     )a WHERE rownum BETWEEN {r_inicial} AND {r_final}"""
 
     conn = ConnectDBSQLite.getConnection()
     datos, _, error = ConnectDBSQLite.makeQuerys(conn, query)
@@ -40,7 +50,7 @@ def getInmuebles(filtros: FiltrosModel):
             "direccion":inmueble[4],
             "localidad":inmueble[5],
             "propietario":inmueble[6],
-
+            "ciudad":inmueble[7],
         })
 
     response = {

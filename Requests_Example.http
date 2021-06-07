@@ -1,10 +1,11 @@
-POST http://localhost:8080/v1/inmueble/obtener HTTP/1.1
+POST http://localhost:8080/v1/propietario/crear HTTP/1.1
 content-type: application/json
 
 {
-   "pagina":1,
-   "orden":{"tipo":"localidad", "by": "DESC"}
-}
+        "nombre": "",
+        "telefono": "",
+        "correo": ""
+    }
 
 #
 

@@ -1,14 +1,14 @@
 from typing import Text
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Text, Optional, List, Dict
 
 
 # Validaciones de datos para propietarios
 class PropietarioModel(BaseModel):
     id: Optional[int]
-    nombre: Text
-    telefono: Text
-    correo: Text
+    nombre: Text = Field(min_length=1)
+    telefono: Text = Field(min_length=1)
+    correo: Text = Field(min_length=1)
 
 
 # Validaciones de datos para cada inmueble
@@ -17,7 +17,7 @@ class Inmueble(BaseModel):
     area: float
     habitaciones: int
     precio: int
-    direccion: Text
+    direccion: Text = Field(min_length=1)
     id_localidad: int
 
 
@@ -34,5 +34,4 @@ class ModelId(BaseModel):
 
 # Validaciones de datos para filtros
 class FiltrosModel(BaseModel):
-    pagina: int
     orden: Dict[str, str]
