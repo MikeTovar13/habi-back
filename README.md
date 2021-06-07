@@ -12,4 +12,4 @@ Run `python main.py` for a dev server. Navigate to `http://localhost:8080/`.
 
 ## Development Docs
 
-Visit link `http://localhost:8080/docs` to see documentation of API services, you can see routes, params and it can be test from there.
+Visit link [http://localhost:8080/docs](http://localhost:8080/docs) to see documentation of API services, you can see routes, params and it can be test from there.
