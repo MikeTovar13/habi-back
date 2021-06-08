@@ -15,13 +15,15 @@ def test_obtener_propietarios():
     assert "propietarios" in json_body
 
 # Test para crear propietarios
-def test_crear_propietarios_correctamente():
+def test_crear_propietarios_correctamente(mocker):
     client = TestClient(app)
     body = {
         "nombre": "Propietario prueba",
         "telefono": "1230456789",
         "correo": "prueba@exaple.com"
     }
+
+    mocker.patch("connect_db.ConnectDBSQLite.makeQuerys", return_value=[[],None,None])
 
     respose = client.post("/v1/propietario/crear", json=body)
     json_body = respose.json()
@@ -43,11 +45,12 @@ def test_crear_propietarios_incorrectamente():
     assert respose.status_code == 422
 
 # Test para eliminar propietarios
-def test_eliminar_propietarios_correctamente():
+def test_eliminar_propietarios_correctamente(mocker):
     client = TestClient(app)
     body = {
         "id": 200
     }
+    mocker.patch("connect_db.ConnectDBSQLite.makeQuerys", return_value=[[],None,None])
 
     respose = client.post("/v1/propietario/eliminar", json=body)
     json_body = respose.json()

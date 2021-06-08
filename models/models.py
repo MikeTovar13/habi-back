@@ -34,4 +34,5 @@ class ModelId(BaseModel):
 
 # Validaciones de datos para filtros
 class FiltrosModel(BaseModel):
+    pagina: int
     orden: Dict[str, str]

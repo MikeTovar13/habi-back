@@ -8,12 +8,13 @@ sys.path.append('..')
 def test_obtener_inmuebles_correctamente():
     client = TestClient(app)
     body = {
+        "pagina":1,
         "orden": {
             "tipo": "fecha",
             "by": "ASC"
         }
     }
-
+    
     respose = client.post("/v1/inmueble/obtener", json=body)
     json_body = respose.json()
 
@@ -35,7 +36,7 @@ def test_obtener_inmuebles_incorrectamente():
 
 
 # Test para crear inmuebles
-def test_crear_inmuebles_correctamente():
+def test_crear_inmuebles_correctamente(mocker):
     client = TestClient(app)
     body = {
         "inmuebles": [
@@ -49,6 +50,7 @@ def test_crear_inmuebles_correctamente():
         ],
         "id_propietario": 1
     }
+    mocker.patch("connect_db.ConnectDBSQLite.makeQuerys", return_value=[[],None,None])
 
     respose = client.post("/v1/inmueble/crear", json=body)
     json_body = respose.json()
@@ -79,13 +81,15 @@ def test_crear_inmuebles_incorrectamente():
 
 
 # Test para eliminar inmuebles
-def test_eliminar_inmuebles_correctamente():
+def test_eliminar_inmuebles_correctamente(mocker):
     client = TestClient(app)
     body = {
         "id": 200
     }
 
+    mocker.patch("connect_db.ConnectDBSQLite.makeQuerys", return_value=[[],None,None])
     respose = client.post("/v1/inmueble/eliminar", json=body)
+
     json_body = respose.json()
 
     assert respose.status_code == 200

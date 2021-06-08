@@ -1,4 +1,5 @@
 from models.models import FiltrosModel, Inmuebles, ModelId
+from settings import NUMBER_INMUEBLES_PAGE
 from datetime import date
 from connect_db import ConnectDBSQLite
 from fastapi import APIRouter
@@ -11,7 +12,8 @@ inmueblesApp = APIRouter()
 # Obtener inmuebles (Todos)
 @inmueblesApp.post("/obtener")
 def getInmuebles(filtros: FiltrosModel):
-    tipo_filtro={
+    
+    tipo_filtro = {
         "fecha": "i.fecha_creacion",
         "localidad": "l.nombre",
         "ciudad": "c.nombre"
@@ -19,43 +21,45 @@ def getInmuebles(filtros: FiltrosModel):
 
     filtros = filtros.dict()
 
-    query = f""" SELECT i.id, i.area, i.habitaciones, i.precio, i.direccion ,l.nombre localidad, p.nombre propietario, c.nombre ciudad 
+    conn = ConnectDBSQLite.getConnection() # Abrir conexion DB
+
+    # Paginacion desde la peticion (enviando de a 10 items), este valor de 10 puede ser modificado en el settings
+    r_final = filtros["pagina"] * NUMBER_INMUEBLES_PAGE 
+    r_inicial = r_final - NUMBER_INMUEBLES_PAGE + 1
+
+    query = f"""SELECT id, area, habitaciones, precio, direccion, localidad, propietario, ciudad FROM(
+        SELECT i.*,l.nombre localidad, p.nombre propietario, c.nombre ciudad,
+            ROW_NUMBER() over(
+            ORDER BY {tipo_filtro[filtros["orden"]["tipo"]]} {filtros["orden"]["by"]}
+            ) RowNum
         FROM inmueble i INNER JOIN localidad l ON l.id= i.id_localidad INNER JOIN propietario p ON p.id=i.id_propietario inner join ciudad c on c.id=l.id_ciudad
-        ORDER BY {tipo_filtro[filtros["orden"]["tipo"]]} {filtros["orden"]["by"]}
-        """
+        )a WHERE rownum BETWEEN {r_inicial} AND {r_final}"""
 
-    # Paginacion desde la peticion (enviando de a 10 items)
-    # r_final = filtros["pagina"] * NUMBER_INMUEBLES_PAGE
-    # r_inicial = r_final - NUMBER_INMUEBLES_PAGE + 1
+    datos, _, error = ConnectDBSQLite.makeQuerys(conn, query) # Query de valores 
 
-    # query = f"""SELECT id, area, habitaciones, precio, direccion, localidad, propietario, ciudad FROM(
-    #     SELECT i.*,l.nombre localidad, p.nombre propietario, c.nombre ciudad, 
-    #         ROW_NUMBER() over(
-    #         ORDER BY {tipo_filtro[filtros["orden"]["tipo"]]} {filtros["orden"]["by"]}
-    #         ) RowNum
-    #     FROM inmueble i INNER JOIN localidad l ON l.id= i.id_localidad INNER JOIN propietario p ON p.id=i.id_propietario inner join ciudad c on c.id=l.id_ciudad
-    #     )a WHERE rownum BETWEEN {r_inicial} AND {r_final}"""
-
-    conn = ConnectDBSQLite.getConnection()
-    datos, _, error = ConnectDBSQLite.makeQuerys(conn, query)
-    ConnectDBSQLite.closeDB(conn)
-
-    inmuebles=[]
+    inmuebles = []
     for inmueble in datos:
         inmuebles.append({
-            "id":inmueble[0],
-            "area":inmueble[1],
-            "habitaciones":inmueble[2],
-            "precio":f"${inmueble[3]:,.0f}",
-            "direccion":inmueble[4],
-            "localidad":inmueble[5],
-            "propietario":inmueble[6],
-            "ciudad":inmueble[7],
+            "id": inmueble[0],
+            "area": inmueble[1],
+            "habitaciones": inmueble[2],
+            "precio": f"${inmueble[3]:,.0f}",
+            "direccion": inmueble[4],
+            "localidad": inmueble[5],
+            "propietario": inmueble[6],
+            "ciudad": inmueble[7],
         })
+
+    query="SELECT COUNT(*) FROM inmueble"
+    total,_,_ = ConnectDBSQLite.makeQuerys(conn, query) # Query de total de inmuebles
+    total = total[0][0]
+
+    ConnectDBSQLite.closeDB(conn) # Cerrar conexion db
 
     response = {
         "Mensaje":  error if error else "Inmuebles obtenidos correctamente",
-        "inmuebles": inmuebles
+        "inmuebles": inmuebles,
+        "total": total
     }
 
     return response
@@ -106,6 +110,6 @@ def deleteInmueble(id: ModelId):
 
     response = {
         "Mensaje": error if error else "Inmueble eliminado correctamente"
-        }
+    }
 
     return response
