@@ -2,15 +2,15 @@
 
 This project was generated with [Python](https://www.python.org/) version 3.9.5.
 
-## Development enviroment and dependencies
+## Development enviroment and install dependencies
 
-Run `virtualenv env` for create enviroment. Then enter to enviroment with command `env\Scripts\activate` and before run command `pip install -r requirements.txt` for install dependencies of proyect. 
+Run `virtualenv env` for create enviroment. Then enter to enviroment with command `env\Scripts\activate` and before run `pip install -r requirements.txt` for install dependencies project. 
 
 ## Development server
 
-Run `python main.py` for a dev server. Navigate to `http://localhost:8080/`. 
+Run `python main.py` for a dev server. Navigate to `http://localhost:8080/`. The app won't automatically reload if you change any of the source files.
 
-## Development unit test
+## Runnung unit test
 
 Run `pytest test` for running unit tests of project.
 
