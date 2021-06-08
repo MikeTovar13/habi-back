@@ -1,4 +1,4 @@
-# Havi Back
+# Habi Back
 
 This project was generated with [Python](https://www.python.org/) version 3.9.5.
 
@@ -17,3 +17,9 @@ Run `pytest test` for running unit tests of project.
 ## Development Docs
 
 Visit link [http://localhost:8080/docs](http://localhost:8080/docs) to see documentation of API services, you can see routes, params and it can be test from there.
+
+## Change log
+
+#### Version - 1.0.0: (07/06/2021)
+
+* Versión inicial
